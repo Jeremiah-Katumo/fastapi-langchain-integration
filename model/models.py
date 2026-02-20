@@ -35,7 +35,7 @@ class Product(SQLModel, table=True):
     deleted_at: Optional[datetime] = None
     
     category: "Category" = Relationship(back_populates="product")
-    reviews: List["Review"] = Relationship(back_populates="product")
+    reviews: List["Review"] = Relationship(back_populates="products")
     
 class Order(SQLModel, table=True):
     id: Optional[str] = Field(default_factory=lambda: str(uuid4()), primary_key=True)
@@ -83,5 +83,5 @@ class Review(SQLModel, table=True):
     user: "User" = Relationship(back_populates="reviews")
     
     product_id: Optional[str] = Field(foreign_key="product.id")
-    product: "Product" = Relationship(back_populates="reviews")
+    products: "Product" = Relationship(back_populates="reviews")
     
